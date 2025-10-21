@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loan Payment Calculator</title>
+  <meta name="description" content="Calculate monthly payment, total paid, and interest for a loan." />
+  <meta name="google-adsense-account" content="ca-pub-3117156488772334">
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="icon" href="data:," />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3117156488772334" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="navbar">
+      <div class="brand"><span class="dot"></span><a href="./">CalcSuite</a></div>
+      <nav class="navlinks">
+        <a href="./">Home</a>
+        <a href="./bmi.html">BMI</a>
+        <a href="./loan.html">Loan</a>
+        <a href="./percentage.html">Percentage</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="layout">
+      <aside class="sidebar left">
+        <div class="sticky">
+          <div class="ad-container panel">
+            <div class="ad-title">Advertisement</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3117156488772334"
+                 data-ad-slot="3234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            <div class="ad-placeholder">Your AdSense unit</div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="content panel">
+        <section class="hero">
+          <h1>Loan Payment</h1>
+          <p>Fixed-rate loan: monthly payment, total interest, and totals.</p>
+        </section>
+
+        <form class="form" id="loan-form">
+          <div class="field">
+            <label for="amount">Loan Amount</label>
+            <input id="amount" type="number" inputmode="decimal" min="0" step="0.01" placeholder="e.g., 25000" required />
+          </div>
+          <div class="field">
+            <label for="rate">Annual Interest Rate (%)</label>
+            <input id="rate" type="number" inputmode="decimal" min="0" step="0.01" placeholder="e.g., 5" required />
+          </div>
+          <div class="field">
+            <label for="years">Term (years)</label>
+            <input id="years" type="number" inputmode="numeric" min="1" step="1" placeholder="e.g., 5" required />
+          </div>
+          <button type="submit">Calculate</button>
+          <div id="loan-result" class="result" role="status" aria-live="polite" hidden></div>
+        </form>
+      </main>
+
+      <aside class="sidebar right">
+        <div class="sticky">
+          <div class="ad-container panel">
+            <div class="ad-title">Advertisement</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3117156488772334"
+                 data-ad-slot="3234567891"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            <div class="ad-placeholder">Your AdSense unit</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      Estimates only; actual payments depend on lender terms.
+    </div>
+  </footer>
+
+  <script>
+    const loanForm = document.getElementById('loan-form');
+    const loanOut = document.getElementById('loan-result');
+
+    loanForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const P = parseFloat(document.getElementById('amount').value);
+      const annualRate = parseFloat(document.getElementById('rate').value);
+      const years = parseInt(document.getElementById('years').value, 10);
+
+      if (!(P > 0) || !(annualRate >= 0) || !(years > 0)) {
+        loanOut.hidden = false;
+        loanOut.textContent = 'Enter valid positive values.';
+        return;
+      }
+
+      const n = years * 12; // months
+      const r = annualRate / 100 / 12; // monthly rate
+
+      let M;
+      if (r === 0) {
+        M = P / n;
+      } else {
+        const pow = Math.pow(1 + r, n);
+        M = (P * r * pow) / (pow - 1);
+      }
+
+      const total = M * n;
+      const interest = total - P;
+
+      const fmt = (v) => v.toLocaleString(undefined, { style: 'currency', currency: 'USD' });
+
+      loanOut.hidden = false;
+      loanOut.innerHTML = `
+        <div><strong>Monthly payment:</strong> ${fmt(M)}</div>
+        <div><strong>Total paid:</strong> ${fmt(total)}</div>
+        <div><strong>Total interest:</strong> ${fmt(interest)}</div>
+      `;
+    });
+  </script>
+</body>
+</html>

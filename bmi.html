@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BMI Calculator</title>
+  <meta name="description" content="Calculate Body Mass Index (BMI) using metric units." />
+  <meta name="google-adsense-account" content="ca-pub-3117156488772334">
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="icon" href="data:," />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3117156488772334" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="navbar">
+      <div class="brand"><span class="dot"></span><a href="./">CalcSuite</a></div>
+      <nav class="navlinks">
+        <a href="./">Home</a>
+        <a href="./bmi.html">BMI</a>
+        <a href="./loan.html">Loan</a>
+        <a href="./percentage.html">Percentage</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="layout">
+      <aside class="sidebar left">
+        <div class="sticky">
+          <div class="ad-container panel">
+            <div class="ad-title">Advertisement</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3117156488772334"
+                 data-ad-slot="2234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            <div class="ad-placeholder">Your AdSense unit</div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="content panel">
+        <section class="hero">
+          <h1>BMI Calculator</h1>
+          <p>Metric units: centimeters and kilograms.</p>
+        </section>
+
+        <form class="form" id="bmi-form">
+          <div class="field">
+            <label for="heightCm">Height (cm)</label>
+            <input id="heightCm" name="heightCm" type="number" inputmode="decimal" min="0" step="0.1" placeholder="e.g., 170" required />
+          </div>
+          <div class="field">
+            <label for="weightKg">Weight (kg)</label>
+            <input id="weightKg" name="weightKg" type="number" inputmode="decimal" min="0" step="0.1" placeholder="e.g., 65" required />
+          </div>
+          <button type="submit">Calculate BMI</button>
+          <div id="bmi-result" class="result" role="status" aria-live="polite" hidden></div>
+        </form>
+
+        <div class="result" style="margin-top:14px">
+          <strong>Categories:</strong>
+          <div style="margin-top:6px; color: var(--muted)">
+            Underweight: < 18.5 · Normal: 18.5–24.9 · Overweight: 25–29.9 · Obesity: ≥ 30
+          </div>
+        </div>
+      </main>
+
+      <aside class="sidebar right">
+        <div class="sticky">
+          <div class="ad-container panel">
+            <div class="ad-title">Advertisement</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3117156488772334"
+                 data-ad-slot="2234567891"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            <div class="ad-placeholder">Your AdSense unit</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      For informational purposes only. Always consult a professional for medical advice.
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('bmi-form');
+    const out = document.getElementById('bmi-result');
+
+    function toCategory(bmi) {
+      if (bmi < 18.5) return 'Underweight';
+      if (bmi < 25) return 'Normal weight';
+      if (bmi < 30) return 'Overweight';
+      return 'Obesity';
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const heightCm = parseFloat(document.getElementById('heightCm').value);
+      const weightKg = parseFloat(document.getElementById('weightKg').value);
+      if (!(heightCm > 0) || !(weightKg > 0)) {
+        out.hidden = false;
+        out.textContent = 'Enter positive height and weight.';
+        return;
+      }
+      const heightM = heightCm / 100;
+      const bmi = weightKg / (heightM * heightM);
+      const bmiRounded = Math.round(bmi * 10) / 10;
+      out.hidden = false;
+      out.textContent = `BMI: ${bmiRounded} (${toCategory(bmiRounded)})`;
+    });
+  </script>
+</body>
+</html>
