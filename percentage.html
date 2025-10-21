@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Percentage Calculator</title>
+  <meta name="description" content="Handy percentage tools: X% of Y, percent change, and more." />
+  <meta name="google-adsense-account" content="ca-pub-3117156488772334">
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="icon" href="data:," />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3117156488772334" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="navbar">
+      <div class="brand"><span class="dot"></span><a href="./">CalcSuite</a></div>
+      <nav class="navlinks">
+        <a href="./">Home</a>
+        <a href="./bmi.html">BMI</a>
+        <a href="./loan.html">Loan</a>
+        <a href="./percentage.html">Percentage</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="layout">
+      <aside class="sidebar left">
+        <div class="sticky">
+          <div class="ad-container panel">
+            <div class="ad-title">Advertisement</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3117156488772334"
+                 data-ad-slot="4234567890"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            <div class="ad-placeholder">Your AdSense unit</div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="content panel">
+        <section class="hero">
+          <h1>Percentage Tools</h1>
+          <p>Three quick helpers for everyday calculations.</p>
+        </section>
+
+        <section class="panel" style="padding:18px; margin-bottom:16px;">
+          <h3 style="margin-top:0">What is X% of Y?</h3>
+          <form class="form" id="pct-of-form">
+            <div class="field">
+              <label for="pct">X (%)</label>
+              <input id="pct" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 15" required />
+            </div>
+            <div class="field">
+              <label for="base">Y</label>
+              <input id="base" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 200" required />
+            </div>
+            <button type="submit">Calculate</button>
+            <div id="pct-of-result" class="result" role="status" aria-live="polite" hidden></div>
+          </form>
+        </section>
+
+        <section class="panel" style="padding:18px; margin-bottom:16px;">
+          <h3 style="margin-top:0">X is what percent of Y?</h3>
+          <form class="form" id="what-pct-form">
+            <div class="field">
+              <label for="part">X</label>
+              <input id="part" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 50" required />
+            </div>
+            <div class="field">
+              <label for="whole">Y</label>
+              <input id="whole" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 200" required />
+            </div>
+            <button type="submit">Calculate</button>
+            <div id="what-pct-result" class="result" role="status" aria-live="polite" hidden></div>
+          </form>
+        </section>
+
+        <section class="panel" style="padding:18px;">
+          <h3 style="margin-top:0">Increase/Decrease Y by X%</h3>
+          <form class="form" id="change-form">
+            <div class="field">
+              <label for="base2">Y</label>
+              <input id="base2" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 100" required />
+            </div>
+            <div class="field">
+              <label for="pct2">X (%)</label>
+              <input id="pct2" type="number" step="0.01" inputmode="decimal" placeholder="e.g., 25" required />
+            </div>
+            <div class="field">
+              <label for="direction">Direction</label>
+              <select id="direction">
+                <option value="increase">Increase</option>
+                <option value="decrease">Decrease</option>
+              </select>
+            </div>
+            <button type="submit">Calculate</button>
+            <div id="change-result" class="result" role="status" aria-live="polite" hidden></div>
+          </form>
+        </section>
+      </main>
+
+      <aside class="sidebar right">
+        <div class="sticky">
+          <div class="ad-container panel">
+            <div class="ad-title">Advertisement</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3117156488772334"
+                 data-ad-slot="4234567891"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            <div class="ad-placeholder">Your AdSense unit</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      For guidance only. Double-check results before relying on them.
+    </div>
+  </footer>
+
+  <script>
+    // X% of Y
+    const pctOfForm = document.getElementById('pct-of-form');
+    const pctOut = document.getElementById('pct-of-result');
+    pctOfForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const pct = parseFloat(document.getElementById('pct').value);
+      const base = parseFloat(document.getElementById('base').value);
+      if (!isFinite(pct) || !isFinite(base)) return;
+      const val = base * (pct / 100);
+      pctOut.hidden = false;
+      pctOut.textContent = `${pct}% of ${base} = ${val}`;
+    });
+
+    // X is what percent of Y
+    const whatPctForm = document.getElementById('what-pct-form');
+    const whatPctOut = document.getElementById('what-pct-result');
+    whatPctForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const part = parseFloat(document.getElementById('part').value);
+      const whole = parseFloat(document.getElementById('whole').value);
+      if (!(whole !== 0)) { whatPctOut.hidden = false; whatPctOut.textContent = 'Y must not be 0.'; return; }
+      const pct = (part / whole) * 100;
+      const r = Math.round(pct * 100) / 100;
+      whatPctOut.hidden = false;
+      whatPctOut.textContent = `${part} is ${r}% of ${whole}`;
+    });
+
+    // Increase/Decrease Y by X%
+    const changeForm = document.getElementById('change-form');
+    const changeOut = document.getElementById('change-result');
+    changeForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const base2 = parseFloat(document.getElementById('base2').value);
+      const pct2 = parseFloat(document.getElementById('pct2').value);
+      const direction = document.getElementById('direction').value;
+      if (!isFinite(base2) || !isFinite(pct2)) return;
+      const factor = pct2 / 100;
+      const result = direction === 'increase' ? base2 * (1 + factor) : base2 * (1 - factor);
+      const r = Math.round(result * 100) / 100;
+      changeOut.hidden = false;
+      changeOut.textContent = `${direction === 'increase' ? 'Increased' : 'Decreased'} value: ${r}`;
+    });
+  </script>
+</body>
+</html>
